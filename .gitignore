@@ -1,0 +1,28 @@
+# Obsidian specific
+.obsidian/workspace
+.obsidian/appearance.json
+.obsidian/cache
+.obsidian/graph.json
+.obsidian/plugins/**/data.json
+.obsidian/plugins/**/main.js
+.obsidian/plugins/**/manifest.json
+.obsidian/plugins/**/styles.css
+
+# Optional: ignore all plugins and themes (uncomment if you don’t want them in git)
+.obsidian/plugins/
+.obsidian/themes/
+
+# macOS specific (since você está usando macOS)
+.DS_Store
+
+# VS Code (caso use para editar os arquivos do vault)
+.vscode/
+
+# Node (caso use plugins que dependam de Node.js)
+node_modules/
+
+# json
+*.json
+
+# arquivos pessoais
+MacApps/
