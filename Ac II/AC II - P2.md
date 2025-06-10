@@ -166,3 +166,117 @@ Carrega 0x1234 nos 16 bits superiores de $t0, e preenche os inferiores com zeros
 - `sll $t0, $t1, 2` → equivale a multiplicar `$t1` por 4  
 - `srl $t0, $t1, 1` → equivale a dividir `$t1` por 2 (parte inteira)  
 - `lui` é muito usado junto com `ori` para montar números de 32 b
+
+
+
+## Store
+**store** significa **guardar um valor da CPU**, em algum lugar da memoria ram
+
+no MIPS, usamos:
+
+##### sw - store word
+```asm
+sw $t0, 0($s1)
+```
+> aka: **Guarde o valor do registrador $t0 na memória no endereço que está em $s1 + 0.**
+
+#### Anatomia do sw
+```asm
+sw origem, offset(base)
+```
+- origem = registrador com o valor que você quer guardar
+- offset = deslocamento (pode ser 0)
+- base = endereço base (em outro registrador)
+
+Exemplo
+``` asm
+sw $t0, 4($sp)   # Guarda $t0 na posição $sp + 4
+```
+
+
+**Exemplo real (guardar dois números na pilha)**
+```asm
+addi $sp, $sp, -8   # espaço na pilha
+sw   $t0, 0($sp)    # guarda $t0
+sw   $t1, 4($sp)    # guarda $t1
+```
+Isso é comum em **funções**, pra salvar os valores antes de chamar outra função (pilha de ativação).
+
+Pra **pegar da memória** usamos:
+
+##### **lw** **—** **load word**
+```asm
+lw $t0, 0($s1)   # Carrega o valor da memória ($s1 + 0) para o registrador $t0
+```
+
+
+>Relembrar
+
+| **Instrução** | **Significado** | **Direção**           |
+| ------------- | --------------- | --------------------- |
+| sw            | Store Word      | Registrador → Memória |
+| lw            | Load Word       | Memória → Registrador |
+
+#### Ideia visual
+Visual: `sw $t0, 0($s1)`
+
+```text
+
+          +-------------+
+
+          |  Registrador |
+
+          |     $t0      |  (valor: 42)
+
+          +------+------+   
+
+                 |
+
+                 |   sw $t0, 0($s1)
+
+                 V
+
+        +---------------------+
+
+        |  Memória[$s1 + 0]   |
+
+        |     recebe 42       |
+
+        +---------------------+
+```
+**Fluxo**:
+CPU (registrador) → Memória (endereço calculado)
+
+Exemplos em comando 
+```asm
+addi $s1, $zero, 1000   # $s1 = 1000 (endereço base)
+addi $t0, $zero, 42     # $t0 = 42 (valor a guardar)
+sw $t0, 0($s1)          # memória[1000] = 42
+```
+
+## LW
+
+o mesmo funciona para o LW, porem um pouco diferente 
+
+```
+[ Memória no endereço ($s1 + 0) ]
+        contém 42
+             │
+             ▼
+      Registrador $t0
+        recebe 42
+```
+
+segue o exemplo de codigo:
+
+```asm
+addi $s1, $zero, 1000   # $s1 = 1000 → endereço base
+lw   $t0, 0($s1)        # carrega o valor da memória[1000] para $t0
+```
+
+lembrar que:
+
+| **Instrução** | **Direção**           | **Significado** |
+| ------------- | --------------------- | --------------- |
+| sw            | Registrador → Memória | **Store Word**  |
+| lw            | Memória → Registrador | **Load Word**   |
