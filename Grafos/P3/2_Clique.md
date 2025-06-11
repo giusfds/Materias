@@ -35,3 +35,51 @@ A maior dificuldade de um clique, não e acha-lo, e sim saber qual e seu maior e
 
 
 Porem existem codigos que tentam achar o maior clique sem usar a força bruta, como por exemplo o algoritmo de **Bron-Kerbosch**, nao sei se o silvio comentou sobre
+
+## Conjunto Independente
+
+Um **conjunto independente** (ou _independent set_) em um grafo é um **conjunto de vértices tal que nenhum par de vértices desse conjunto está conectado por uma aresta**. 
+
+**Em outras palavras:**
+Se você pegar dois vértices quaisquer do conjunto, **eles não podem ser vizinhos**.
+
+#### Exemplo
+
+```
+A --- B
+|     |
+C     D
+```
+
+existe arestas:
+A-C
+A-B
+B-D
+
+Nesse meio existe alguns conjuntos independentes, sendo eles:
+- {C, D} e valido, ja que C e D nao se ligam.
+- {A-D} e valido, ja que A nao liga em D, mesmo tendo um caminho direto passando por B
+	- o que acontece e que eles nao sao vizinhos diretos, ou seja, nao necessariamente estao ligados diretos
+- {A-B} e invalido, ja que eles sao vizinhos
+- {B} e valido, ja que o mesmo e independente
+
+## Maximo conjunto independente
+
+No grafo acima, e representado pelo conjunto de {C-D}, com tamanho de 2, isso e chamado de MIS.
+
+## Algoritmos
+
+1. Achar o vertice de maior ou menor grau
+2. Checar se ha arestas 
+	1. Se houver, incluir
+	2. Se nao, ignorar
+
+- Cobertura de vertice
+
+1. Pega o $v \in V$ de maior grau
+2. remover $v$
+3. Pegar o próximo maior
+
+
+
+[[3_Planaridade]]
